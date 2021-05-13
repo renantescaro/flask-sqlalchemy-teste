@@ -1,32 +1,46 @@
-from flask import Flask, request, make_response
+from flask import Flask, request, render_template
 from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime as dt
 from models.usuario import Usuario
 
-db  = SQLAlchemy()
-app = Flask('api_clima', static_url_path='/static', static_folder='static')
+app = Flask(
+    'api_clima',
+    static_url_path='/static',
+    static_folder='static' )
+
+app.config.from_mapping(
+        SECRET_KEY   = 'super secret key',
+        SESSION_TYPE = 'filesystem',
+        JSONIFY_PRETTYPRINT_REGULAR = False,
+        SQLALCHEMY_DATABASE_URI = 'mysql://root:Tz0rKy2003@localhost/teste' )
+
+app.run(debug=True, host='192.168.1.182', port=5000)
+
+db = SQLAlchemy()
 db.init_app(app)
-db.create_all()
+
+@app.route('/criar', methods=['GET'])
+def criar_tabela_usuarios():
+    db.create_all()
+    return '<h1>Tabela criada com sucesso!</h1>'
+
+@app.route('/inserir', methods=['GET'])
+def inserir_usuario():
+    nome  = request.args.get('nome')
+    email = request.args.get('email')
+    if nome and email:
+        usuario = Usuario(
+            nome  = nome,
+            email = email )
+
+        db.session.add(usuario)
+        db.session.commit()
+    return render_template(
+        f"{usuario} criado com sucesso!" )
 
 @app.route('/', methods=['GET'])
-def user_records():
-    username = request.args.get('user')
-    email    = request.args.get('email')
-    if username and email:
-        new_user = Usuario(
-            username = username,
-            email    = email,
-            created  = dt.now(),
-            admin    = False,
-            bio      = "In West Philadelphia born and raised, on the \
-                        playground is where I spent most of my days" )
-
-        db.session.add(new_user)
-        db.session.commit()
-    return make_response(f"{new_user} successfully created!")
-
-if __name__ == "__main__":
-    app.config['SESSION_TYPE'] = 'filesystem'
-    app.config['JSONIFY_PRETTYPRINT_REGULAR'] = False
-    app.secret_key = '+777/ sUper_SeCret-kEY ! |777*'
-    app.run(debug=True, host='192.168.1.182', port=5000)
+def listar_usuarios():
+    usuarios = Usuario.query.all()
+    return render_template(
+        'listagem.html',
+        usuarios=usuarios
+    )
