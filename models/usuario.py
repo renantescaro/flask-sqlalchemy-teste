@@ -1,14 +1,11 @@
 from . import db
 
-
 class Usuario(db.Model):
-    __tablename__ = 'usuario'
-
     id = db.Column(
         db.Integer,
         primary_key = True
     )
-    username = db.Column(
+    nome = db.Column(
         db.String(64),
         index    = False,
         unique   = True,
@@ -20,21 +17,6 @@ class Usuario(db.Model):
         unique   = True,
         nullable = False
     )
-    created = db.Column(
-        db.DateTime,
-        index    = False,
-        unique   = False,
-        nullable = False
-    )
-    bio = db.Column(
-        db.Text,
-        index    = False,
-        unique   = False,
-        nullable = True
-    )
-    admin = db.Column(
-        db.Boolean,
-        index    = False,
-        unique   = False,
-        nullable = False
-    )
+
+    def __repr__(self):
+        return '<Usuario %r>' % self.nome
