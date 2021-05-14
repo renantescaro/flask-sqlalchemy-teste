@@ -14,7 +14,7 @@ def create_app(test_config=None):
         SECRET_KEY   = 'super secret key',
         SESSION_TYPE = 'filesystem',
         JSONIFY_PRETTYPRINT_REGULAR = False,
-        SQLALCHEMY_DATABASE_URI     = 'mysql://root:Tz0rKy2003@localhost/teste' )
+        SQLALCHEMY_DATABASE_URI     = 'mysql://USUARIO:SENHA@localhost/teste' )
 
     db.init_app(app)
 
