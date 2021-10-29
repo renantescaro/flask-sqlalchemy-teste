@@ -1,10 +1,9 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from flaskr.routes.rotas import Rotas
+from flaskr.controllers.pessoa_ctrl import bp as bp_pessoas
+from flaskr.models import db
 
-db = SQLAlchemy()
 
-def create_app(test_config=None):
+def create_app():
     app = Flask(
         __name__,
         static_url_path = '/static',
@@ -14,9 +13,12 @@ def create_app(test_config=None):
         SECRET_KEY   = 'super secret key',
         SESSION_TYPE = 'filesystem',
         JSONIFY_PRETTYPRINT_REGULAR = False,
-        SQLALCHEMY_DATABASE_URI     = 'mysql://USUARIO:SENHA@localhost/teste' )
+        SQLALCHEMY_DATABASE_URI = 'mysql://usuario:senha@localhost/sql_alchemy' )
 
     db.init_app(app)
+    app.register_blueprint(bp_pessoas)
 
-    Rotas(app)
+    with app.app_context():
+        db.create_all()
+
     return app
