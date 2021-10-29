@@ -9,7 +9,7 @@
 </head>
 <body>
     <div style="text-align: center;">
-        <h3>Listagem de usuários</h3>
+        <h3>Listagem de Pessoas</h3>
     </div>
     <table class="table table-striped table-bordered">
         <thead>
@@ -20,11 +20,11 @@
             </tr>
         </thead>
         <tbody>
-            {% for usuario in usuarios %}
+            {% for pessoa in pessoas %}
             <tr>
-                <td>{{ usuario.id    }}</td>
-                <td>{{ usuario.nome  }}</td>
-                <td>{{ usuario.email }}</td>
+                <td>{{ pessoa.id    }}</td>
+                <td>{{ pessoa.nome  }}</td>
+                <td>{{ pessoa.email }}</td>
             </tr>
             {% endfor %}
         </tbody>
