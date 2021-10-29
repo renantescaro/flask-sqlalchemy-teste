@@ -1,6 +1,8 @@
-from flaskr import db
+from flaskr.models import db
 
-class Usuario(db.Model):
+
+class Pessoa(db.Model):
+    __tablename__ = 'pessoas'
     id = db.Column(
         db.Integer,
         primary_key = True )
@@ -18,4 +20,4 @@ class Usuario(db.Model):
         nullable = False )
 
     def __repr__(self):
-        return '<Usuario %r>' % self.nome
+        return '<Pessoa %r>' % self.nome
