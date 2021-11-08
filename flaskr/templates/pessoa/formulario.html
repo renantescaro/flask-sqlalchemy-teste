@@ -2,14 +2,14 @@
 {% block conteudo %}
     <form action="/pessoas/salvar" method="post">
         <div>
-            <input class="form-control" type="hidden" name="id">
+            <input class="form-control" type="hidden" name="id" value="{{pessoa.id}}">
             <div class="row col-6">
                 <label>Nome</label>
-                <input class="form-control" type="text" name="nome" required>
+                <input class="form-control" type="text" name="nome" value="{{pessoa.nome}}" required>
             </div>
             <div class="row col-6">
                 <label>Email</label>
-                <input class="form-control" type="email" name="email" required>
+                <input class="form-control" type="email" name="email" value="{{pessoa.email}}" required>
             </div>
             <br>
             <div class="row">
