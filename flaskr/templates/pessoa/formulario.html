@@ -1,0 +1,25 @@
+{% extends "/base.html" %}
+{% block conteudo %}
+    <form action="/pessoas/salvar" method="post">
+        <div>
+            <input class="form-control" type="hidden" name="id">
+            <div class="row col-6">
+                <label>Nome</label>
+                <input class="form-control" type="text" name="nome" required>
+            </div>
+            <div class="row col-6">
+                <label>Email</label>
+                <input class="form-control" type="email" name="email" required>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-1">
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                </div>
+                <div class="col-1">
+                    <a href="/pessoas" class="btn btn-danger">Cancelar</a>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}
