@@ -13,14 +13,16 @@ class PessoaCtrl:
     def listar():
         pessoas = Pessoa.query.all()
         return render_template(
-            'listagem.html',
+            'pessoa/listagem.html',
             pessoas=pessoas )
 
 
     @bp.route('/pessoas/nova', methods=['GET'])
     def nova():
+        return render_template(
+            'pessoa/formulario.html',
+        )
         #db.create_all()
-        return '<h1>form nova</h1>'
 
 
     @bp.route('/pessoas/editar', methods=['GET'])
@@ -31,8 +33,13 @@ class PessoaCtrl:
 
     @bp.route('/pessoas/salvar', methods=['POST'])
     def salvar():
-        nome  = request.args.get('nome')
-        email = request.args.get('email')
+        pessoa = None
+        nome   = request.args.get('nome')
+        email  = request.args.get('email')
+
+        print(nome)
+        print(email)
+
         if nome and email:
             pessoa = Pessoa(
                 nome  = nome,
@@ -40,5 +47,5 @@ class PessoaCtrl:
 
             db.session.add(pessoa)
             db.session.commit()
-        return render_template(
-            f"{pessoa} criado com sucesso!" )
+            return f"{pessoa} criado com sucesso!"
+        return "Erro ao inserir pessoa!"
