@@ -1,11 +1,27 @@
-### executar aplicação
-* > set FLASK_APP=flaskr
-* > set FLASK_ENV=development
-* > flask run
+### Flask SQL Alchemy
+* https://flask.palletsprojects.com/en/2.0.x/
+* https://flask-sqlalchemy.palletsprojects.com/en/2.x/
 
 <br>
 
-#### Dependências
+### Instalar todas as dependências
+* pip install -r requirements.txt
+
+<br>
+
+### Instalar dependências manualmente
 * flask==1.1.2
 * Flask-SQLAlchemy==2.5.1
 * waitress==2.0.0
+* mysqlclient==2.0.3
+<br>
+
+### Configurações
+* arquivo .env
+
+<br>
+
+### Executar aplicação
+* > python3.7 run.py
+
+<br>
