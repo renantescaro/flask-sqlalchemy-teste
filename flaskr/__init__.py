@@ -1,7 +1,7 @@
 from flask import Flask
-from flask.config import Config
-from flaskr.controllers.pessoa_ctrl import bp as bp_pessoas
 from flaskr.models import db
+from flaskr.utilitarios.config import Config
+from flaskr.controllers.pessoa_ctrl import bp as bp_pessoas
 
 
 def create_app():
