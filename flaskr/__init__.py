@@ -1,4 +1,5 @@
 from flask import Flask
+from flask.config import Config
 from flaskr.controllers.pessoa_ctrl import bp as bp_pessoas
 from flaskr.models import db
 
@@ -13,7 +14,7 @@ def create_app():
         SECRET_KEY   = 'super secret key',
         SESSION_TYPE = 'filesystem',
         JSONIFY_PRETTYPRINT_REGULAR = False,
-        SQLALCHEMY_DATABASE_URI = 'mysql://usuario:senha@localhost/sql_alchemy' )
+        SQLALCHEMY_DATABASE_URI = Config.get('DATABASE_URI') )
 
     db.init_app(app)
     app.register_blueprint(bp_pessoas)
