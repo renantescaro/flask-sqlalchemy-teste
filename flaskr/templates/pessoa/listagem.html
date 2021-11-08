@@ -9,6 +9,7 @@
                 <th>Id</th>
                 <th>Nome</th>
                 <th>Email</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -17,6 +18,10 @@
                 <td>{{ pessoa.id    }}</td>
                 <td>{{ pessoa.nome  }}</td>
                 <td>{{ pessoa.email }}</td>
+                <td>
+                    <a class="btn btn-primary" href="/pessoas/editar/{{pessoa.id}}">Editar</a>
+                    <a class="btn btn-danger" href="/pessoas/excluir/{{pessoa.id}}">Excluir</a>
+                </td>
             </tr>
             {% endfor %}
         </tbody>
