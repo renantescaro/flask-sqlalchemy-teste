@@ -1,4 +1,4 @@
-from flask import request, render_template, Blueprint
+from flask import request, render_template, Blueprint, redirect, url_for
 from flaskr.models.pessoa import Pessoa
 from flaskr.models.pessoa import db
 
@@ -21,31 +21,44 @@ class PessoaCtrl:
     def nova():
         return render_template(
             'pessoa/formulario.html',
-        )
-        #db.create_all()
+            pessoa = None )
 
 
-    @bp.route('/pessoas/editar', methods=['GET'])
-    def editar():
-        #db.create_all()
-        return '<h1>form editar</h1>'
+    @bp.route('/pessoas/editar/<id>', methods=['GET'])
+    def editar(id):
+        return render_template(
+            'pessoa/formulario.html',
+            pessoa = Pessoa.query.filter_by(id=id).first() )
 
 
     @bp.route('/pessoas/salvar', methods=['POST'])
     def salvar():
         pessoa = None
-        nome   = request.args.get('nome')
-        email  = request.args.get('email')
-
-        print(nome)
-        print(email)
+        id     = request.form.get('id')
+        nome   = request.form.get('nome')
+        email  = request.form.get('email')
 
         if nome and email:
-            pessoa = Pessoa(
-                nome  = nome,
-                email = email )
+            # inserir
+            if id == '':
+                pessoa = Pessoa(
+                    nome  = nome,
+                    email = email )
+                db.session.add(pessoa)
+                db.session.commit()
+                return redirect(url_for('pessoas.listar'))
 
-            db.session.add(pessoa)
+            # edição
+            pessoa = Pessoa.query.filter_by(id=id).first()
+            pessoa.nome  = nome
+            pessoa.email = email
             db.session.commit()
-            return f"{pessoa} criado com sucesso!"
-        return "Erro ao inserir pessoa!"
+        return redirect(url_for('pessoas.listar'))
+
+
+    @bp.route('/pessoas/excluir/<id>', methods=['GET'])
+    def excluir(id):
+        pessoa = Pessoa.query.filter_by(id=id).first()
+        db.session.delete(pessoa)
+        db.session.commit()
+        return redirect(url_for('pessoas.listar'))
