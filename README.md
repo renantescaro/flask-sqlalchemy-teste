@@ -14,6 +14,8 @@
 * Flask-SQLAlchemy==2.5.1
 * waitress==2.0.0
 * mysqlclient==2.0.3
+* python-dotenv==0.17.0
+
 <br>
 
 ### Configurações
