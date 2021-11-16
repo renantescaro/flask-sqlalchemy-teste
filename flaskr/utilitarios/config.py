@@ -12,7 +12,7 @@ class Config:
 
 
     def set(hash, valor):
-        if Config.get(hash) == None:
+        if Config.get(hash) is None:
             f = open(".env", "a")
             f.write(str(hash).lower()+"="+str(valor)+"\n")
             f.close()
