@@ -4,6 +4,11 @@
 
 <br>
 
+<img src="doc/listagem_pessoas.png">
+
+<br>
+
+
 ### Instalar todas as dependências
 * pip install -r requirements.txt
 
